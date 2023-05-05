@@ -1,0 +1,5 @@
+# ignorar todas os arquivos das pastas
+
+__pycache__/
+build/
+*.spec
