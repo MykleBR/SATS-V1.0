@@ -75,7 +75,7 @@ class Robo():
             try:
                 cur = connRobo.cursor()
                 sql = f"""  
-                INSERT INTO [ROBOBD001].[dbo].[robotb001_atividade]
+                INSERT INTO [dbo].[atividade]
                 ([DH_LOGIN]
                 ,[CO_USUARIO]
                 ,[IC_APLICACAO]
@@ -100,7 +100,7 @@ class Robo():
             try:
                 cur = connRobo.cursor()
                 sql = f"""
-                UPDATE [ROBOBD001].[dbo].[robotb001_atividade]
+                UPDATE [dbo].[atividade]
                 SET [DH_STATUS] = GETDATE()
                 WHERE IC_APLICACAO = '{Config.ROBOT_NAME.value}'
                 AND CO_USUARIO = '{usuario}'                
@@ -119,7 +119,7 @@ class Robo():
             try:
                 cur = connRobo.cursor()
                 sql = f"""
-                DELETE FROM [ROBOBD001].[dbo].[robotb001_atividade]
+                DELETE FROM [dbo].[atividade]
                 WHERE IC_APLICACAO = '{Config.ROBOT_NAME.value}'
                 AND CO_USUARIO = '{usuario}'                              
                 """
@@ -140,7 +140,7 @@ class Robo():
             try:
                 cur = connRobo.cursor()
                 sql = f"""  
-                INSERT INTO [ROBOBD001].[dbo].[robotb003_logs]
+                INSERT INTO [dbo].[logs]
                 ([DH_INSERT]
                 ,[NOME_ROBO]
                 ,[USUARIO]
@@ -167,7 +167,7 @@ class Robo():
                 cur = connRobo.cursor()
                 sql = f"""  
                 DELETE
-                FROM [ROBOBD001].[dbo].[robotb003_logs] 
+                FROM [dbo].[logs] 
                 WHERE	VIDA = 'DIA'		AND DH_INSERT < DATEADD(DAY,	-1 ,GETDATE())
                 OR		VIDA = 'SEMANA'		AND DH_INSERT < DATEADD(WEEK,	-1 ,GETDATE())
                 OR		VIDA = 'MES'		AND DH_INSERT < DATEADD(MONTH,	-1 ,GETDATE())
@@ -190,7 +190,7 @@ class Main():
         SELECT
         [CO_MAT_RESET],
         [CO_MAT_SOLICITANTE]
-        FROM [Main].[ssat].[MainTB002_REQUISICAO]
+        FROM [Main].[REQUISICAO]
         WHERE 
         IC_STATUS = 0
         order by 1 desc
@@ -221,7 +221,7 @@ class Main():
         SELECT TOP (1)
         [CO_MATRICULA],
         [DE_SENHA]
-        FROM [Main].[ssat].[MainTB001_GESTOR]
+        FROM [Main].[GESTOR]
         WHERE CO_CONTRATO = {contrato}
         AND
         IC_SENHA_INVALIDA = 0
@@ -241,7 +241,7 @@ class Main():
         '''
         cur = connMain.cursor()
         sql = f"""
-        UPDATE [ssat].[MainTB002_REQUISICAO] 
+        UPDATE [Main].[REQUISICAO] 
         SET [IC_STATUS] = {status}, 
         DT_RESET = GETDATE() 
         WHERE [CO_MAT_RESET]='{matricula}' 
@@ -253,7 +253,7 @@ class Main():
         ''' Define a senha do gestor como inválida no banco de dados'''
         cur = connMain.cursor()
         sql = f"""
-        UPDATE [ssat].[MainTB001_GESTOR]
+        UPDATE [Main].[GESTOR]
         SET [IC_SENHA_INVALIDA] = 1
         WHERE CO_MATRICULA = '{matricula}'
         """
