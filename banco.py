@@ -56,7 +56,7 @@ class Robo():
                 sql = f"""
                 SELECT TOP(1) 
                 DH_STATUS 
-                FROM robotb001_atividade 
+                FROM atividade 
                 WHERE IC_APLICACAO='{Config.ROBOT_NAME.value}' 
                 order by DH_STATUS desc
                 """
